@@ -1,7 +1,7 @@
-function Node(text, initallyExpanded) {
+function Node(text, cs, initallyExpanded) {
     var o = {
         text: text,
-        children: [],
+        children: cs || [],
         expanded: !!initallyExpanded,
         expandable: function expandable() {
             return o.children.length > 0;
@@ -12,29 +12,21 @@ function Node(text, initallyExpanded) {
     };
     return o;
 }
-export default function createTestNodes() {
-    var countries = [];
-
-    var america = Node('North America', true);
-
-    var usa = Node('USA');
-    usa.children.push(Node('York'));
-    usa.children.push(Node('Texas'));
-    usa.children.push(Node('Oregon'));
-    usa.children.push(Node('South Dakota'));
-    america.children.push(usa);
-
-    america.children.push(Node('Canada'));
-    america.children.push(Node('Mexico'));
-
-    var europe = Node('Europe');
-    europe.children.push(Node('Norway'));
-    europe.children.push(Node('Sweden'));
-    europe.children.push(Node('France'));
-    europe.children.push(Node('Germany'));
-
-    countries.push(america);
-    countries.push(europe);
-
-    return countries;
+export default function () {
+    return [
+        Node('North America', [
+            Node('USA', [
+                Node('York'),
+                Node('Texas'),
+                Node('Oregon'),
+                Node('South Dakota')
+            ]),
+            Node('Canada'),
+            Node('Mexico')
+        ], true),
+        Node('Europe', [
+            Node('Norway'),
+            Node('Sweden'),
+            Node('France'),
+            Node('Germany')], true)];
 };
