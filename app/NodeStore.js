@@ -1,14 +1,8 @@
 import {EventEmitter} from 'events';
+import copy from './copy';
 import createMockModel from './createMockModel';
 
-function _x(d, s) {
-    var k;
-    for (k in s) {
-        d[k] = s[k];
-    }
-    return d;
-}
-export default _x(_x({}, EventEmitter.prototype), {
+export default copy({}, EventEmitter.prototype, {
     _nodes: createMockModel(),
     getNodes: function () {
         return this._nodes;

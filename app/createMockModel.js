@@ -1,40 +1,41 @@
 function CountryModel(text) {
-    this.children = [];
-    this.text = text;
-    this.icon = this.getIcon();
-    this.visible = false;
-    this.selected = false;
+    var o = {
+        children: [],
+        text: text,
+        icon: function icon() {
+            if (o.children.length > 0) {
+                if (o.children[0].visible === false) {
+                    return '+'
+                }
+                return '-';
+            }
+        },
+        visible: false,
+        selected: false
+    };
+    return o;
 }
-CountryModel.prototype.getIcon = function () {
-    if (this.children.length > 0) {
-        if (this.children[0].visible === false) {
-            return '+'
-        }
-        return '-';
-    }
-    return null;
-};
 export default function createMockModel() {
     var countries = [];
 
-    var america = new CountryModel('North America');
+    var america = CountryModel('North America');
     america.visible = true;
 
-    var usa = new CountryModel('USA');
-    usa.children.push(new CountryModel('New York'));
-    usa.children.push(new CountryModel('Texas'));
-    usa.children.push(new CountryModel('Oregon'));
-    usa.children.push(new CountryModel('South Dakota'));
+    var usa = CountryModel('USA');
+    usa.children.push(CountryModel('York'));
+    usa.children.push(CountryModel('Texas'));
+    usa.children.push(CountryModel('Oregon'));
+    usa.children.push(CountryModel('South Dakota'));
     america.children.push(usa);
 
-    america.children.push(new CountryModel('Canada'));
-    america.children.push(new CountryModel('Mexico'));
+    america.children.push(CountryModel('Canada'));
+    america.children.push(CountryModel('Mexico'));
 
-    var europe = new CountryModel('Europe');
-    europe.children.push(new CountryModel('Norway'));
-    europe.children.push(new CountryModel('Sweden'));
-    europe.children.push(new CountryModel('France'));
-    europe.children.push(new CountryModel('Germany'));
+    var europe = CountryModel('Europe');
+    europe.children.push(CountryModel('Norway'));
+    europe.children.push(CountryModel('Sweden'));
+    europe.children.push(CountryModel('France'));
+    europe.children.push(CountryModel('Germany'));
     europe.visible = true;
 
     countries.push(america);

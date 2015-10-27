@@ -16,7 +16,7 @@ var TreeNode = React.createClass({
         });
         return (
                 <li>
-                    <span onClick={this.toggle}>{this.props.node.getIcon()}</span>
+                    <span className="icon" onClick={this.toggle}>{this.props.node.icon()}</span>
                     <span>{this.props.node.text}</span>
                     <ul>{nodes}</ul>
                 </li>

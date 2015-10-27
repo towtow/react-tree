@@ -1,0 +1,15 @@
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul ul {
+    padding-left: 2em;
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    cursor: pointer;
+}

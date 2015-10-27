@@ -1,15 +1,8 @@
 import {Dispatcher} from 'flux';
 import NodeStore from './NodeStore';
+import copy from './copy';
 
-function _x(d, s) {
-    var k;
-    for (k in s) {
-        d[k] = s[k];
-    }
-    return d;
-}
-
-var AppDispatcher = _x(new Dispatcher(), {
+var AppDispatcher = copy(new Dispatcher(), {
     handleViewAction: function (action) {
         this.dispatch({
             source: 'VIEW_ACTION',
