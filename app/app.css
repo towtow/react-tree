@@ -1,15 +1,34 @@
-ul {
+.tree {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tree ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-ul ul {
+.tree ul ul {
     padding-left: 2em;
 }
 
-.icon {
-    display: inline-block;
-    width: 1em;
+.tree-icon,
+.tree-label {
     cursor: pointer;
+}
+
+.tree-icon {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+}
+
+.tree-selected .tree-label {
+    background-color: #faf9b0;
 }

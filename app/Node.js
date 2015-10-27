@@ -1,14 +1,12 @@
-export default function (text, cs, initiallyExpanded) {
-    var o = {
+var nextId = 0;
+
+export default function (text, data, cs, initiallyExpanded) {
+    return {
+        key: nextId++,
         text: text,
-        children: cs || [],
         expanded: !!initiallyExpanded,
-        expandable: function () {
-            return o.children.length > 0;
-        },
-        icon: function () {
-            return o.expandable() ? (o.expanded ? '-' : '+') : undefined;
-        }
+        selected: false,
+        children: cs || [],
+        data: data
     };
-    return o;
 };
