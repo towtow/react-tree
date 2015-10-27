@@ -1,17 +1,15 @@
 import {EventEmitter} from 'events';
 import copy from './copy';
-import createMockModel from './createMockModel';
+import createTestNodes from './createTestNodes';
+
+var nodes = createTestNodes();
 
 export default copy({}, EventEmitter.prototype, {
-    _nodes: createMockModel(),
     getNodes: function () {
-        return this._nodes;
+        return nodes;
     },
     toggleNode: function (node) {
-        var i;
-        for (i = 0; i < node.children.length; i++) {
-            node.children[i].visible = !node.children[i].visible;
-        }
+        node.expanded = !node.expanded;
         this.emit('change');
     },
     addChangeListener: function (callback) {

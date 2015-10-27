@@ -4,10 +4,10 @@ import NodeStore from './NodeStore';
 
 export default React.createClass({
     getInitialState: function () {
-        return {countries: NodeStore.getNodes()};
+        return {nodes: NodeStore.getNodes()};
     },
     onChange: function () {
-        this.setState({countries: NodeStore.getNodes()});
+        this.setState({nodes: NodeStore.getNodes()});
     },
     componentDidMount: function () {
         NodeStore.addChangeListener(this.onChange);
@@ -16,9 +16,8 @@ export default React.createClass({
         NodeStore.removeChangeListener(this.onChange);
     },
     render: function () {
-        var countries = this.state.countries;
-        var nodes = countries.map(function (n) {
-            return <TreeNode key={n.text} node={n} children={n.children}/>
+        var nodes = this.state.nodes.map(function (node) {
+            return <TreeNode key={node.text} node={node}/>
         });
         return (
                 <ul>

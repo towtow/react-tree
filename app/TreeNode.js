@@ -9,16 +9,17 @@ var TreeNode = React.createClass({
         });
     },
     render: function () {
-        var nodes = this.props.children.map(function (n) {
-            if (n.visible) {
-                return <TreeNode key={n.text} node={n} children={n.children}/>
-            }
-        });
+        var childNodes;
+        if (this.props.node.expanded) {
+            childNodes = this.props.node.children.map(function (node) {
+                return <TreeNode key={node.text} node={node}/>
+            });
+        }
         return (
                 <li>
                     <span className="icon" onClick={this.toggle}>{this.props.node.icon()}</span>
                     <span>{this.props.node.text}</span>
-                    <ul>{nodes}</ul>
+                    <ul>{childNodes}</ul>
                 </li>
         );
     }
