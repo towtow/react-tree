@@ -1,5 +1,6 @@
 import React from 'react';
 import AppDispatcher from './AppDispatcher';
+
 var TreeNode = React.createClass({
     toggle: function (e) {
         AppDispatcher.dispatch({
@@ -23,4 +24,5 @@ var TreeNode = React.createClass({
         );
     }
 });
+
 export default TreeNode;

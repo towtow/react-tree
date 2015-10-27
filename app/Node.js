@@ -3,10 +3,10 @@ export default function (text, cs, initiallyExpanded) {
         text: text,
         children: cs || [],
         expanded: !!initiallyExpanded,
-        expandable: function expandable() {
+        expandable: function () {
             return o.children.length > 0;
         },
-        icon: function icon() {
+        icon: function () {
             return o.expandable() ? (o.expanded ? '-' : '+') : undefined;
         }
     };
