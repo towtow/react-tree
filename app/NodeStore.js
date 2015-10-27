@@ -1,9 +1,7 @@
 import {EventEmitter} from 'events';
 import copy from './copy';
 import createTestNodes from './createTestNodes';
-
 var nodes = createTestNodes();
-
 export default copy({}, EventEmitter.prototype, {
     getNodes: function () {
         return nodes;

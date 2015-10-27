@@ -1,7 +1,6 @@
 import {Dispatcher} from 'flux';
 import NodeStore from './NodeStore';
 import copy from './copy';
-
 var AppDispatcher = copy(new Dispatcher(), {
     handleViewAction: function (action) {
         this.dispatch({
@@ -18,5 +17,4 @@ AppDispatcher.register(function (payload) {
     }
     return true;
 });
-
 export default AppDispatcher;
