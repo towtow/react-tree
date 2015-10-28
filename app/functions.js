@@ -1,3 +1,5 @@
 export default {
-    call: function(x) { return x(); }
+    call: function (x) {
+        return x();
+    }
 };

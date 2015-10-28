@@ -1,31 +1,27 @@
 import {EventEmitter} from 'events';
 import copy from '../copy';
 import TreeExampleData from '../TreeExampleData';
-import Node from '../Node';
 import {ActionTypes} from '../constants/TreeConstants';
-import mkEventEmitter from '../mkEventEmitter';
+import Store from './Store';
+import Immutable from 'immutable';
 
-var nodes = TreeExampleData, selectedNode;
+var nodes = TreeExampleData;
+var selectedNode;
 
-var NodeStore = mkEventEmitter({
-    getNodes: function () {
-        return nodes;
-    },
-    handleEvent(e) {
-        switch (e.eventName) {
-            case ActionTypes.EXPAND_COLLAPSE:
-                e.node.expanded = !e.node.expanded;
-                break;
-            case ActionTypes.SELECT:
-                if (selectedNode) {
-                    selectedNode.selected = false;
-                }
-                e.node.selected = true;
-                selectedNode = e.node;
-                break;
+var NodeStore = Store(new Map([ //
+    [ActionTypes.EXPAND_COLLAPSE, (e, changed) => {
+        e.node.expanded = !e.node.expanded;
+        changed();
+    }], //
+    [ActionTypes.SELECT, (e, changed) => {
+        if (selectedNode) {
+            selectedNode.selected = false;
         }
-        NodeStore.trigger();
-        return true;
-    }});
+        e.node.selected = true;
+        selectedNode = e.node;
+        changed();
+    }] //
+]));
+NodeStore.getNodes = () => nodes;
 
 export default NodeStore;

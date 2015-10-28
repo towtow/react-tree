@@ -1,14 +1,12 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/TreeConstants';
 
-function nodeEvent(node, name) {
+function nodeEvent(node, key) {
     AppDispatcher.dispatch({
-        eventName: name,
-        node: node
+        eventKey: key, node: node
     });
 }
 
 export default {
-    select: (node) => nodeEvent(node, ActionTypes.SELECT),
-    expandCollapse: (node) => nodeEvent(node, ActionTypes.EXPAND_COLLAPSE)
+    select: (node) => nodeEvent(node, ActionTypes.SELECT), expandCollapse: (node) => nodeEvent(node, ActionTypes.EXPAND_COLLAPSE)
 };

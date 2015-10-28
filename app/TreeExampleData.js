@@ -1,20 +1,6 @@
-import Node from './Node';
+import n from './mkNode';
 
-export default [Node('North America', {}, [Node('USA',
-        {
-            population: 3,
-            someNameLikeProp: 'USA'
-        },
-        [Node('South Carolina'),
-            Node('Texas'),
-            Node('Oregon'),
-            Node('South Dakota')]),
-    Node('Canada'),
-    Node('Mexico')], true),
-    Node('Europe',
-            {},
-            [Node('Norway'),
-                Node('Sweden'),
-                Node('France'),
-                Node('Germany')],
-         true)];
+export default [n('North America', {}, [n('USA', {
+            population: 3, someNameLikeProp: 'USA'
+        }, [n('South Carolina'), n('Texas'), n('Oregon'), n('South Dakota')]), n('Canada'), n('Mexico')], true),
+    n('Europe', {}, [n('Norway'), n('Sweden'), n('France'), n('Germany')], true)];

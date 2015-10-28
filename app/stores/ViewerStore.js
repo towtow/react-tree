@@ -1,13 +1,9 @@
-import {EventEmitter} from 'events';
+import Store from './Store';
 
 var selectedNode;
 
-function changed() {
-    // todo
-}
-
-var ViewerStore = {
-    handleEvent(e) {
+var ViewerStore = Store({
+    handleEvent(e, changed) {
         switch (e.eventName) {
             case 'select':
                 //viewerThing.select(e.node.data.oid);
@@ -15,12 +11,11 @@ var ViewerStore = {
         }
         changed();
         return true;
-    },
-    selectionInViewerChanged(e) {
+    }, selectionInViewerChanged(e, changed) {
         changed();
         return true;
     }
-};
+});
 
 //viewer.onSelect(ViewerStore.selectionInViewerChanged);
 
