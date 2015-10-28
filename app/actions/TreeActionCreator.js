@@ -3,7 +3,7 @@ import {ActionTypes} from '../constants/TreeConstants';
 
 function nodeEvent(node, key) {
     AppDispatcher.dispatch({
-        eventKey: key, node: node
+        key: key, node: node
     });
 }
 

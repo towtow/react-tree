@@ -8,17 +8,17 @@ import Immutable from 'immutable';
 var nodes = TreeExampleData;
 var selectedNode;
 
-var NodeStore = Store(new Map([ //
-    [ActionTypes.EXPAND_COLLAPSE, (e, changed) => {
-        e.node.expanded = !e.node.expanded;
+var NodeStore = Store(new Immutable.Map([ //
+    [ActionTypes.EXPAND_COLLAPSE, (event, changed) => {
+        event.node.expanded = !event.node.expanded;
         changed();
     }], //
-    [ActionTypes.SELECT, (e, changed) => {
+    [ActionTypes.SELECT, (event, changed) => {
         if (selectedNode) {
             selectedNode.selected = false;
         }
-        e.node.selected = true;
-        selectedNode = e.node;
+        event.node.selected = true;
+        selectedNode = event.node;
         changed();
     }] //
 ]));

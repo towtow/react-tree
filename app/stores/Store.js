@@ -1,17 +1,19 @@
-import {List} from 'immutable';
+import {OrderedSet, Map} from 'immutable';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 import {call} from '../functions';
 
-import {ActionTypes} from '../constants/TreeConstants';
+var emptyMap = new Map();
+var callbacks = OrderedSet();
 
-export default function (actionHandlers, getGetters) {
-    var callbacks = List();
+export default function (actionHandlers) {
+    var dispatcherToken = AppDispatcher.register((event) => {
+        var f = (event.key)(actionHandlers || emptyMap);
+        return f ? f(event, () => callbacks.map(call)) : false;
+    });
 
     return {
-        addListener: (callback) => callbacks = callbacks.push(callback),
-        removeListener: (callback) => callbacks = callbacks.remove(callback),
-        handleEvent: (e) => {
-            var f = (e.eventKey)(actionHandlers);
-            return f ? f(e, () => callbacks.map(call)) : false;
-        }
+        dispatcherToken: dispatcherToken,
+        addListener: (callback) => callbacks = callbacks.add(callback),
+        removeListener: (callback) => callbacks = callbacks.remove(callback)
     };
 };

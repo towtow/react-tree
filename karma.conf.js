@@ -2,12 +2,12 @@ module.exports = function (config) {
     config.set({
         browsers: ['PhantomJS'],
         files: [{
-            pattern: 'test.js',
+            pattern: 'all-tests.js',
             watched: false
         }],
         frameworks: ['jasmine'],
         preprocessors: {
-            'test.js': ['webpack']
+            'all-tests.js': ['webpack']
         },
         reporters: ['dots'],
         singleRun: true,
