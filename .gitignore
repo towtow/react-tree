@@ -43,5 +43,3 @@ Temporary Items
 .apdisk
 workspace.xml
 *.log
-
-node_modules/
