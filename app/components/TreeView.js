@@ -1,16 +1,54 @@
 import React from 'react';
-import nodeStore from '../stores/NodeStore';
-import TreeLevel from './TreeLevel';
+import NodeStore from '../stores/NodeStore';
+import TreeActionCreator from '../actions/TreeActionCreator';
+
+function TreeLevel(props) {
+    var TreeNode = function (props) {
+        function toggle(e) {
+            TreeActionCreator.expandCollapse(props.node);
+            e.stopPropagation();
+        }
+
+        function select(e) {
+            TreeActionCreator.select(props.node);
+            e.stopPropagation();
+        }
+
+        var node = props.node, childNodes;
+        if (node.expanded) {
+            childNodes = <TreeLevel nodes={node.children}/>;
+        }
+        var icon = node.children.length > 0 ? (node.expanded ? '-' : '+') : undefined;
+        return (
+                <li>
+                    <div className={node.selected ? 'tree-selected' : ''} onDoubleClick={toggle}>
+                        <span className="tree-icon" onClick={toggle}>{icon}</span>
+                        <span className="tree-label" onClick={select}>{node.text}</span>
+                    </div>
+                    {childNodes}
+                </li>
+        );
+    };
+
+    var childNodes = props.nodes.map(function (node) {
+        return <TreeNode key={node.key} node={node}/>
+    });
+    return (
+            <ul>
+                {childNodes}
+            </ul>
+    );
+}
 
 export default React.createClass({
     getInitialState: function () {
-        return {nodes: nodeStore.getNodes()};
+        return {nodes: NodeStore.getNodes()};
     }, onChange: function () {
-        this.setState({nodes: nodeStore.getNodes()});
+        this.setState({nodes: NodeStore.getNodes()});
     }, componentDidMount: function () {
-        nodeStore.addListener(this.onChange);
+        NodeStore.addListener(this.onChange);
     }, componentWillUnmount: function () {
-        nodeStore.removeListener(this.onChange);
+        NodeStore.removeListener(this.onChange);
     }, render: function () {
         return (
                 <div className="tree">
