@@ -4,26 +4,27 @@ import TreeActionCreator from '../actions/TreeActionCreator';
 
 function TreeLevel(props) {
     var TreeNode = function (props) {
+        var node = props.node, childNodes;
+
         function toggle(e) {
-            TreeActionCreator.expandCollapse(props.node);
+            TreeActionCreator.expandCollapse(node);
             e.stopPropagation();
         }
 
         function select(e) {
-            TreeActionCreator.select(props.node);
+            TreeActionCreator.select(node);
             e.stopPropagation();
         }
 
-        var node = props.node, childNodes;
-        if (node.expanded) {
-            childNodes = <TreeLevel nodes={node.children}/>;
+        if (node.get('expanded')) {
+            childNodes = <TreeLevel nodes={node.get('children')}/>;
         }
-        var icon = node.children.length > 0 ? (node.expanded ? '-' : '+') : undefined;
+        var icon = node.get('children').count() > 0 ? (node.get('expanded') ? '-' : '+') : undefined;
         return (
                 <li>
-                    <div className={node.selected ? 'tree-selected' : ''} onDoubleClick={toggle}>
+                    <div className={node.get('selected') ? 'tree-selected' : ''} onDoubleClick={toggle}>
                         <span className="tree-icon" onClick={toggle}>{icon}</span>
-                        <span className="tree-label" onClick={select}>{node.text}</span>
+                        <span className="tree-label" onClick={select}>{node.get('text')}</span>
                     </div>
                     {childNodes}
                 </li>
@@ -31,7 +32,7 @@ function TreeLevel(props) {
     };
 
     var childNodes = props.nodes.map(function (node) {
-        return <TreeNode key={node.key} node={node}/>
+        return <TreeNode key={node.get('key')} node={node}/>
     });
     return (
             <ul>

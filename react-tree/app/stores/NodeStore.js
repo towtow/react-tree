@@ -3,24 +3,51 @@ import Immutable from 'immutable';
 import TreeExampleData from '../TreeExampleData';
 import {ActionTypes} from '../constants/TreeConstants';
 
-var nodes, selectedNode;
+var nodes, selectedKey;
 
-nodes = TreeExampleData;
+nodes = Immutable.fromJS(TreeExampleData);
+
+function updatePM(nodes, pred, mutation) {
+    var emptyList = Immutable.List();
+
+    function procNode(node) {
+        if (pred(node)) {
+            return mutation(node);
+        }
+        else {
+            return node.set('children', (node.get('children') || emptyList).reduce(function (acc, c) {
+                return acc.push(procNode(c));
+            }, Immutable.List()));
+        }
+    }
+
+    return nodes.reduce(function (acc, c) {
+        return acc.push(procNode(c));
+    }, Immutable.List());
+}
+
+function update(nodes, key, mutation) {
+    return updatePM(nodes, (n) => n.get('key') === key, mutation);
+}
 
 function onEvent(event, changed) {
+    var setSelected = (b) => (n) => n.set('selected', b);
+
     switch (event.key) {
+
         case ActionTypes.EXPAND_COLLAPSE:
-            event.payload.node.expanded = !event.payload.node.expanded;
+            nodes = update(nodes, event.payload.node.get('key'), function (n) {
+                return n.set('expanded', !n.get('expanded'));
+            });
             changed();
             break;
+
         case ActionTypes.SELECT:
-            if (selectedNode) {
-                selectedNode.selected = false;
-            }
-            event.payload.node.selected = true;
-            selectedNode = event.payload.node;
+            nodes = update(update(nodes, selectedKey, setSelected(false)), event.payload.node.get('key'), setSelected(true));
+            selectedKey = event.payload.node.get('key');
             changed();
             break;
+
         default:
             break;
     }
