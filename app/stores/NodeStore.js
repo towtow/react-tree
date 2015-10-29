@@ -1,27 +1,38 @@
-import {EventEmitter} from 'events';
-import copy from '../copy';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import Immutable from 'immutable';
 import TreeExampleData from '../TreeExampleData';
 import {ActionTypes} from '../constants/TreeConstants';
-import Store from './Store';
-import Immutable from 'immutable';
 
-var nodes = TreeExampleData;
-var selectedNode;
+var listeners = Immutable.OrderedSet(), dispatcherToken, nodes, selectedNode;
 
-var NodeStore = Store(new Immutable.Map([ //
-    [ActionTypes.EXPAND_COLLAPSE, (event, changed) => {
-        event.node.expanded = !event.node.expanded;
-        changed();
-    }], //
-    [ActionTypes.SELECT, (event, changed) => {
-        if (selectedNode) {
-            selectedNode.selected = false;
-        }
-        event.node.selected = true;
-        selectedNode = event.node;
-        changed();
-    }] //
-]));
-NodeStore.getNodes = () => nodes;
+nodes = TreeExampleData;
 
-export default NodeStore;
+function changed() {
+    listeners.map((f) => f());
+}
+
+dispatcherToken = AppDispatcher.register((event) => {
+    switch (event.key) {
+        case ActionTypes.EXPAND_COLLAPSE:
+            event.payload.node.expanded = !event.payload.node.expanded;
+            changed();
+            break;
+        case ActionTypes.SELECT:
+            if (selectedNode) {
+                selectedNode.selected = false;
+            }
+            event.payload.node.selected = true;
+            selectedNode = event.payload.node;
+            changed();
+            break;
+        default:
+            break;
+    }
+});
+
+export default {
+    addListener: (callback) => listeners = listeners.add(callback),
+    removeListener: (callback) => listeners = listeners.remove(callback),
+    getDispatcherToken: () => dispatcherToken,
+    getNodes: () => nodes
+};
