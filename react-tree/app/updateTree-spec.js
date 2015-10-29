@@ -22,18 +22,16 @@ function updatePM(nodes, pred, mutation) {
     }, Immutable.List());
 }
 
-function update(nodes, key, mutation) {
-    return updatePM(nodes, (n) => n.get('key') === key, mutation);
+function update(nodes, id, mutation) {
+    return updatePM(nodes, (n) => n.get('id') === id, mutation);
 }
 
 describe('...', function () {
     it('...', function () {
-        var usaKey = nodes.get(0).get('children').get(0).get('key');
-        console.log(usaKey);
+        var usaKey = nodes.get(0).get('children').get(0).get('id');
         var nodesP = update(nodes, usaKey, function (n) {
             return n.set('text', 'U.S.A')
         });
-        console.log(JSON.stringify(nodesP.toJS(), null, 4));
         var usa2 = nodesP.get(0).get('children').get(0);
         expect(usa2.get('text')).toBe('U.S.A')
     });
