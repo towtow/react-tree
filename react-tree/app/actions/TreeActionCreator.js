@@ -8,6 +8,6 @@ function event(type, payload) {
 }
 
 export default {
-    select: (node) => event(ActionTypes.SELECT, {node: node}),
-    expandCollapse: (node) => event(ActionTypes.EXPAND_COLLAPSE, {node: node})
+    select: (nodeId) => event(ActionTypes.SELECT, {nodeId: nodeId}),
+    expandCollapse: (nodeId) => event(ActionTypes.EXPAND_COLLAPSE, {nodeId: nodeId})
 };

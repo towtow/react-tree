@@ -10,18 +10,21 @@ function copy(d, ...ss) {
     }, d);
 }
 
-export default function (eventHandler, getters) {
+export default function (initialState, eventHandler) {
     var listeners = Immutable.List();
-
+    var state = initialState;
     var dispatcherToken = AppDispatcher.register((event) => {
-        eventHandler(event, () => listeners.map((f) => f()));
+        var newState = eventHandler(event, state);
+        if (!Immutable.is(state, newState)) {
+            state = newState;
+            listeners.map((f) => f());
+        }
     });
 
-    return Object.freeze(copy({},
-            getters,
-            {
-                addListener: (callback) => listeners = listeners.push(callback),
-                removeListener: (callback) => listeners = listeners.remove(listeners.indexOf(callback)),
-                getDispatcherToken: () => dispatcherToken
-            }));
+    return Object.freeze({
+        addListener: (callback) => listeners = listeners.push(callback),
+        removeListener: (callback) => listeners = listeners.remove(listeners.indexOf(callback)),
+        getDispatcherToken: () => dispatcherToken,
+        getState: () => state
+    });
 };

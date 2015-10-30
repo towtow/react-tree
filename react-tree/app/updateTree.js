@@ -1,11 +1,13 @@
 import Immutable from 'immutable';
 
-export default function (nodes, pred, mutation) {
-    var emptyList = Immutable.List();
+var emptyList = Immutable.List();
+
+export default function (nodes, predicate, mutation) {
 
     function procNode(node) {
-        if (pred(node)) {
-            return mutation(node);
+        if (predicate(node)) {
+            var changedNode = mutation(node);
+            return changedNode.set('children', procLevel(node.get('children') || emptyList));
         }
         else {
             return node.set('children', procLevel(node.get('children') || emptyList));

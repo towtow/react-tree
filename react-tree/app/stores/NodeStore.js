@@ -4,32 +4,34 @@ import TreeExampleData from '../TreeExampleData';
 import {ActionTypes} from '../constants/TreeConstants';
 import updateTree from '../updateTree';
 
-var nodes, selectedId;
+var initialState = new Immutable.Map({
+    nodes: Immutable.fromJS(TreeExampleData), selectedId: undefined
+});
 
-nodes = Immutable.fromJS(TreeExampleData);
+var updateById = (nodes, nodeId, mutation) => {
+    return updateTree(nodes, (n) => n.get('id') === nodeId, mutation);
+};
 
-function updateById(nodes, id, mutation) {
-    return updateTree(nodes, (n) => n.get('id') === id, mutation);
-}
+var expandCollapse = (state, nodeId) => {
+    return state.set('nodes', updateById(state.get('nodes'), nodeId, function (n) {
+        return n.set('expanded', !n.get('expanded'));
+    }));
+};
 
-function onEvent(event, changed) {
+var select = (state, nodeId) => {
+    return state.set('selectedId', nodeId);
+};
+
+var onEvent = (event, state) => {
     switch (event.key) {
-
         case ActionTypes.EXPAND_COLLAPSE:
-            nodes = updateById(nodes, event.payload.node.get('id'), function (n) {
-                return n.set('expanded', !n.get('expanded'));
-            });
-            changed();
-            break;
+            return expandCollapse(state, event.payload.nodeId);
 
         case ActionTypes.SELECT:
-            selectedId = event.payload.node.get('id');
-            changed();
-            break;
-
-        default:
-            break;
+            return select(state, event.payload.nodeId);
     }
-}
 
-export default makeStore(onEvent, {getNodes: () => nodes, getSelectedId: ()=> selectedId});
+    return state;
+};
+
+export default makeStore(initialState, onEvent);

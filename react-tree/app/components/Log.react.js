@@ -3,9 +3,9 @@ import LogStore from '../stores/LogStore';
 
 export default React.createClass({
     getInitialState: function () {
-        return {log: LogStore.getLog()};
+        return {log: LogStore.getState()};
     }, onChange: function () {
-        this.setState({log: LogStore.getLog()});
+        this.setState({log: LogStore.getState()});
     }, componentDidMount: function () {
         LogStore.addListener(this.onChange);
     }, componentWillUnmount: function () {
@@ -14,8 +14,7 @@ export default React.createClass({
         var LogEntry = function (l) {
             return (
                     <li key={key++}>
-                        <div>{l.key}</div>
-                        <pre>{JSON.stringify(l.payload, null, 4)}</pre>
+                        {l.key} {JSON.stringify(l.payload)}
                     </li>
             );
         };
