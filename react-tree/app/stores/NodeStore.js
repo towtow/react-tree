@@ -13,8 +13,6 @@ function updateById(nodes, id, mutation) {
 }
 
 function onEvent(event, changed) {
-    var setSelected = (b) => (n) => n.set('selected', b);
-
     switch (event.key) {
 
         case ActionTypes.EXPAND_COLLAPSE:
