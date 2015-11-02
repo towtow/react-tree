@@ -2,10 +2,10 @@ import Immutable from 'immutable';
 import TreeExampleData from './TreeExampleData';
 import update from './updateTree';
 
-var nodes = Immutable.fromJS(TreeExampleData);
+var nodes = TreeExampleData;
 
-describe('...', function () {
-    it('...', function () {
+describe('update tree', function () {
+    it('works', function () {
         var usaKey = nodes.get(0).get('children').get(0).get('id');
         var swedenKey = nodes.get(1).get('children').get(1).get('id');
         var pred = (n) => n.get('id') === usaKey || n.get('id') === swedenKey;

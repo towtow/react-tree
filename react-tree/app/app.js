@@ -1,3 +1,4 @@
+import log from './log';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mkTreeView from './components/mkTreeView.react';
@@ -13,4 +14,6 @@ ReactDOM.render(<TreeView />, document.getElementById('app'));
 var Log = mkLogView(LogStore);
 ReactDOM.render(<Log />, document.getElementById('log'));
 
+log.msg('Loading data...');
 TreeActionCreator.loadData(TreeExampleData);
+log.msg('...done!');

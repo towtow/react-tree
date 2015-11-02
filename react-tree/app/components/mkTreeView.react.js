@@ -1,6 +1,7 @@
 import React from 'react';
 import TreeActionCreator from '../actions/TreeActionCreator';
 import Immutable from 'immutable';
+import log from '../log';
 
 export default function (nodeStore) {
     var TreeNode = React.createClass({
@@ -18,11 +19,11 @@ export default function (nodeStore) {
                 e.stopPropagation();
             }
 
-            console.log('> TreeNode', this.props.node.get('text'));
+            log.imsg(this.props.level, 'TreeNode', this.props.node.get('text'));
             var props = this.props, node = props.node, childNodes, nodeId = node.get('id');
             var expanded = node.get('expanded');
             if (expanded) {
-                childNodes = <TreeLevel nodes={node.get('children')}/>;
+                childNodes = <TreeLevel nodes={node.get('children')} level={props.level + 1}/>;
             }
             var icon = node.get('children').count() > 0 ? (expanded ? '-' : '+') : undefined;
             return (
@@ -38,9 +39,8 @@ export default function (nodeStore) {
     });
 
     var TreeLevel = function (props) {
-        console.log('> TreeLevel');
         var childNodes = (props.nodes || []).map(function (node) {
-            return <TreeNode key={node.get('id')} node={node}/>
+            return <TreeNode key={node.get('id')} node={node} level={props.level}/>
         });
         return (
                 <ul>
@@ -50,7 +50,7 @@ export default function (nodeStore) {
     };
 
     function getStoreState() {
-        return {nodes: nodeStore.getState().get('nodes')};
+        return {nodes: nodeStore.getState()};
     }
 
     return React.createClass({
@@ -58,9 +58,7 @@ export default function (nodeStore) {
             return getStoreState();
         }, //
         onChange: function () {
-            var s = getStoreState();
-            console.log('CHANGE', s);
-            this.setState(s);
+            this.setState(getStoreState());
         }, //
         componentDidMount: function () {
             nodeStore.addListener(this.onChange);
@@ -69,10 +67,9 @@ export default function (nodeStore) {
             nodeStore.removeListener(this.onChange);
         }, //
         render: function () {
-            console.log('> TreeView', this.state.nodes);
             return (
                     <div className="tree">
-                        <TreeLevel nodes={this.state.nodes}/>
+                        <TreeLevel nodes={this.state.nodes} level={1}/>
                     </div>
             );
         }

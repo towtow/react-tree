@@ -1,20 +1,12 @@
 import AppDispatcher from '../../dispatcher/AppDispatcher';
 import Immutable from 'immutable';
 
-function copy(d, ...ss) {
-    return ss.reduce(function (acc, s) {
-        for (var k in s) {
-            acc[k] = s[k];
-        }
-        return acc;
-    }, d);
-}
-
 export default function (initialState, eventHandler) {
     var listeners = Immutable.List();
     var state = initialState;
+
     var dispatcherToken = AppDispatcher.register((event) => {
-        var newState = eventHandler(event, state);
+        var newState = eventHandler(event.get('key'), event.get('payload'), state, event);
         if (!Immutable.is(state, newState)) {
             state = newState;
             listeners.map((f) => f());

@@ -1,6 +1,7 @@
 /* globals JSON */
 import React from 'react';
 import Immutable from 'immutable';
+import log from '../log';
 
 export default function (logStore) {
     function getStoreState() {
@@ -13,7 +14,7 @@ export default function (logStore) {
         }, //
         render: function () {
             var props = this.props;
-            console.log('> LogEntry ' + props.l.get('key'));
+            log.imsg(1, 'LogEntry ' + props.l.get('key'));
             return (
                     <li>
                         {props.l.get('key')} {JSON.stringify(props.l)}
@@ -36,7 +37,6 @@ export default function (logStore) {
             logStore.removeListener(this.onChange);
         }, //
         render: function () {
-            console.log('> LogView');
             var key = 0;
             var logEntries = this.state.log.map((l) => <LogEntry key={key++} l={l}/>).reverse();
             return (
