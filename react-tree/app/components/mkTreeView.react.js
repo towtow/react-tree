@@ -9,7 +9,7 @@ export default (nodeStore) => {
             return !Immutable.is(this.props.node, nextProps.node);
         }, //
         render: function () {
-            var toggle = (e) => {
+            var expandCollapse = (e) => {
                 TreeActionCreator.expandCollapse(nodeId);
                 e.stopPropagation();
             };
@@ -28,8 +28,8 @@ export default (nodeStore) => {
             var icon = node.get('children').count() > 0 ? (expanded ? '-' : '+') : undefined;
             return (
                     <li>
-                        <div className={node.get('selected') ? 'tree-selected' : ''} onDoubleClick={toggle}>
-                            <span className="tree-icon" onClick={toggle}>{icon}</span>
+                        <div className={node.get('selected') ? 'tree-selected' : ''}>
+                            <span className="tree-icon" onClick={expandCollapse}>{icon}</span>
                             <span className="tree-label" onClick={select}>{node.get('text')}</span>
                         </div>
                         {childNodes}
