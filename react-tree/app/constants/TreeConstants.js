@@ -1,4 +1,3 @@
-import KeywordMap from '../KeywordMap';
 import Immutable from 'immutable';
 
 export default {
