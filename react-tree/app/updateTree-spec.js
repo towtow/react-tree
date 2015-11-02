@@ -1,26 +1,8 @@
 import Immutable from 'immutable';
 import TreeExampleData from './TreeExampleData';
+import update from './updateTree';
 
 var nodes = Immutable.fromJS(TreeExampleData);
-
-function updatePM(nodes, pred, mutation) {
-    var emptyList = Immutable.List();
-
-    function procNode(node) {
-        if (pred(node)) {
-            return mutation(node);
-        }
-        else {
-            return node.set('children', (node.get('children') || emptyList).reduce(function (acc, c) {
-                return acc.push(procNode(c));
-            }, Immutable.List()));
-        }
-    }
-
-    return nodes.reduce(function (acc, c) {
-        return acc.push(procNode(c));
-    }, Immutable.List());
-}
 
 describe('...', function () {
     it('...', function () {

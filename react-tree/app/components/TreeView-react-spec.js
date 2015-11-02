@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-var TreeView = require('./TreeView.react');
+import NodeStore from '../stores/NodeStore';
+import mkTreeView from './mkTreeView.react';
+
+var TreeView = mkTreeView(NodeStore);
 
 describe('asd', function () {
     it('asd', function () {
