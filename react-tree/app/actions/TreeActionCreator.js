@@ -8,7 +8,8 @@ function event(type, payload) {
     }));
 }
 
-export default {
-    select: (nodeId) => event(ActionTypes.SELECT, {nodeId: nodeId}),
-    expandCollapse: (nodeId) => event(ActionTypes.EXPAND_COLLAPSE, {nodeId: nodeId})
-};
+export default Object.freeze({
+    select: (nodeId) => event(ActionTypes.SELECT, nodeId),
+    expandCollapse: (nodeId) => event(ActionTypes.EXPAND_COLLAPSE, nodeId),
+    loadData: (data) => event(ActionTypes.LOAD_DATA, data)
+});

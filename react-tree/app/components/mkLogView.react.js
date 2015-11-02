@@ -16,7 +16,7 @@ export default function (logStore) {
             console.log('> LogEntry ' + props.l.get('key'));
             return (
                     <li>
-                        {props.l.get('key')} {JSON.stringify(props.l.get('payload'))}
+                        {props.l.get('key')} {JSON.stringify(props.l)}
                     </li>
             );
         }

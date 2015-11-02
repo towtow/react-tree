@@ -1,11 +1,10 @@
 import mkStore from './utils/mkStore';
 import Immutable from 'immutable';
-import TreeExampleData from '../TreeExampleData';
 import {ActionTypes} from '../constants/TreeConstants';
 import updateTree from '../updateTree';
 
 var initialState = new Immutable.Map({
-    nodes: Immutable.fromJS(TreeExampleData)
+    nodes: Immutable.List()
 });
 
 var updateById = (nodes, nodeId, mutation) => {
@@ -27,10 +26,13 @@ var toggleSelect = (state, nodeId) => {
 var onEvent = (event, state) => {
     switch (event.get('key')) {
         case ActionTypes.EXPAND_COLLAPSE:
-            return expandCollapse(state, event.get('payload').get('nodeId'));
+            return expandCollapse(state, event.get('payload'));
 
         case ActionTypes.SELECT:
-            return toggleSelect(state, event.get('payload').get('nodeId'));
+            return toggleSelect(state, event.get('payload'));
+
+        case ActionTypes.LOAD_DATA:
+            return state.set('nodes', event.get('payload'));
     }
 
     return state;

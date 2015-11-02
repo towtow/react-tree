@@ -8,10 +8,6 @@ export default function (nodeStore) {
             return !Immutable.is(this.props.node, nextProps.node);
         }, //
         render: function () {
-            var props = this.props, node = props.node, childNodes, nodeId = node.get('id');
-
-            console.log('> TreeNode', node.get('text'));
-
             function toggle(e) {
                 TreeActionCreator.expandCollapse(nodeId);
                 e.stopPropagation();
@@ -22,6 +18,8 @@ export default function (nodeStore) {
                 e.stopPropagation();
             }
 
+            console.log('> TreeNode', this.props.node.get('text'));
+            var props = this.props, node = props.node, childNodes, nodeId = node.get('id');
             var expanded = node.get('expanded');
             if (expanded) {
                 childNodes = <TreeLevel nodes={node.get('children')}/>;
@@ -41,7 +39,7 @@ export default function (nodeStore) {
 
     var TreeLevel = function (props) {
         console.log('> TreeLevel');
-        var childNodes = props.nodes.map(function (node) {
+        var childNodes = (props.nodes || []).map(function (node) {
             return <TreeNode key={node.get('id')} node={node}/>
         });
         return (
@@ -60,7 +58,9 @@ export default function (nodeStore) {
             return getStoreState();
         }, //
         onChange: function () {
-            this.setState(getStoreState());
+            var s = getStoreState();
+            console.log('CHANGE', s);
+            this.setState(s);
         }, //
         componentDidMount: function () {
             nodeStore.addListener(this.onChange);
@@ -69,7 +69,7 @@ export default function (nodeStore) {
             nodeStore.removeListener(this.onChange);
         }, //
         render: function () {
-            console.log('> TreeView');
+            console.log('> TreeView', this.state.nodes);
             return (
                     <div className="tree">
                         <TreeLevel nodes={this.state.nodes}/>

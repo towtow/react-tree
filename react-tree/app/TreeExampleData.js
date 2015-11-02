@@ -1,6 +1,15 @@
-import n from './mkNode';
+import Immutable from 'immutable';
 
-export default [ //
+var uniqueNodeID = 0;
+
+function n(text, data, cs, initiallyExpanded) {
+    uniqueNodeID = uniqueNodeID + 1;
+    return {
+        id: uniqueNodeID, text: text, data: data, children: cs || [], expanded: !!initiallyExpanded, selected: false
+    };
+}
+
+export default Immutable.fromJS([ //
     n('North America', {}, [ //
         n('USA', {population: 3, someNameLikeProp: 'USA'}, [ //
             n('South Carolina'), //
@@ -14,4 +23,4 @@ export default [ //
         n('Norway'), //
         n('Sweden'), //
         n('France'), //
-        n('Germany')], true)];
+        n('Germany')], true)]);
