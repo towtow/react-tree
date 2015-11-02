@@ -5,7 +5,7 @@ import {ActionTypes} from '../constants/TreeConstants';
 import updateTree from '../updateTree';
 
 var initialState = new Immutable.Map({
-    nodes: Immutable.fromJS(TreeExampleData), prevSelectedId: null
+    nodes: Immutable.fromJS(TreeExampleData)
 });
 
 var updateById = (nodes, nodeId, mutation) => {
@@ -18,13 +18,10 @@ var expandCollapse = (state, nodeId) => {
     }));
 };
 
-var select = (state, nodeId) => {
-    var s1 = state.set('nodes', updateById(state.get('nodes'), state.get('prevSelectedId'), function (n) {
-        return n.set('selected', false);
+var toggleSelect = (state, nodeId) => {
+    return state.set('nodes', updateById(state.get('nodes'), nodeId, function (n) {
+        return n.set('selected', !n.get('selected', true));
     }));
-    return s1.set('nodes', updateById(s1.get('nodes'), nodeId, function (n) {
-        return n.set('selected', true);
-    })).set('prevSelectedId', nodeId);
 };
 
 var onEvent = (event, state) => {
@@ -33,7 +30,7 @@ var onEvent = (event, state) => {
             return expandCollapse(state, event.payload.nodeId);
 
         case ActionTypes.SELECT:
-            return select(state, event.payload.nodeId);
+            return toggleSelect(state, event.payload.nodeId);
     }
 
     return state;
