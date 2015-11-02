@@ -4,17 +4,17 @@ import {ActionTypes} from '../constants/TreeConstants';
 import updateTree from '../updateTree';
 
 export default (dispatcher) => {
-    var updateById = (state, nodeId, mutation) => updateTree(state, (n) => n.get('id') === nodeId, mutation);
+    var updateNodeById = (state, nodeId, mutation) => updateTree(state, (n) => n.get('id') === nodeId, mutation);
 
-    var toggleFieldFor = (field) => (node) => node.set(field, !node.get(field));
+    var fieldTogglerFor = (field) => (node) => node.set(field, !node.get(field));
 
     var onEvent = (key, payload, state) => {
         switch (key) {
             case ActionTypes.EXPAND_COLLAPSE:
-                return updateById(state, payload, toggleFieldFor('expanded'));
+                return updateNodeById(state, payload, fieldTogglerFor('expanded'));
 
             case ActionTypes.SELECT:
-                return updateById(state, payload, toggleFieldFor('selected'));
+                return updateNodeById(state, payload, fieldTogglerFor('selected'));
 
             case ActionTypes.LOAD_DATA:
                 return payload;
