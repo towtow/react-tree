@@ -3,8 +3,10 @@ import React from 'react';
 import Immutable from 'immutable';
 import log from '../log';
 
-export default (logStore) => {
-    var getStoreState = () => ({log: logStore.getState()});
+export default (dispatcher, logStore) => {
+    function getStoreState() {
+        return {log: logStore.getState()};
+    }
 
     var LogEntry = React.createClass({
         shouldComponentUpdate: function (nextProps, nextState) {

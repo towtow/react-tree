@@ -3,17 +3,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import mkTreeView from './components/mkTreeView.react';
 import mkLogView from './components/mkLogView.react';
-import NodeStore from './stores/NodeStore';
-import LogStore from './stores/LogStore';
-import TreeActionCreator from './actions/TreeActionCreator';
+import mkNodeStore from './stores/NodeStore';
+import mkLogStore from './stores/LogStore';
+import mkTreeActionCreator from './actions/TreeActionCreator';
 import TreeExampleData from './TreeExampleData';
+import {Dispatcher} from 'flux';
 
-var TreeView = mkTreeView(NodeStore);
+var appDispatcher = new Dispatcher();
+
+var nodeStore = mkNodeStore(appDispatcher);
+var logStore = mkLogStore(appDispatcher);
+
+var TreeView = mkTreeView(appDispatcher, nodeStore);
 ReactDOM.render(<TreeView />, document.getElementById('app'));
-
-var Log = mkLogView(LogStore);
+var Log = mkLogView(appDispatcher, logStore);
 ReactDOM.render(<Log />, document.getElementById('log'));
 
 log.msg('Loading data...');
-TreeActionCreator.loadData(TreeExampleData);
+mkTreeActionCreator(appDispatcher).loadData(TreeExampleData);
 log.msg('...done!');

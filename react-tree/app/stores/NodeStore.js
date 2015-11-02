@@ -3,22 +3,24 @@ import Immutable from 'immutable';
 import {ActionTypes} from '../constants/TreeConstants';
 import updateTree from '../updateTree';
 
-var updateById = (state, nodeId, mutation) => updateTree(state, (n) => n.get('id') === nodeId, mutation);
+export default (dispatcher) => {
+    var updateById = (state, nodeId, mutation) => updateTree(state, (n) => n.get('id') === nodeId, mutation);
 
-var toggleFieldFor = (field) => (node) => node.set(field, !node.get(field));
+    var toggleFieldFor = (field) => (node) => node.set(field, !node.get(field));
 
-var onEvent = (key, payload, state) => {
-    switch (key) {
-        case ActionTypes.EXPAND_COLLAPSE:
-            return updateById(state, payload, toggleFieldFor('expanded'));
+    var onEvent = (key, payload, state) => {
+        switch (key) {
+            case ActionTypes.EXPAND_COLLAPSE:
+                return updateById(state, payload, toggleFieldFor('expanded'));
 
-        case ActionTypes.SELECT:
-            return updateById(state, payload, toggleFieldFor('selected'));
+            case ActionTypes.SELECT:
+                return updateById(state, payload, toggleFieldFor('selected'));
 
-        case ActionTypes.LOAD_DATA:
-            return payload;
-    }
-    return state;
+            case ActionTypes.LOAD_DATA:
+                return payload;
+        }
+        return state;
+    };
+
+    return mkStore(dispatcher, Immutable.List(), onEvent)
 };
-
-export default mkStore(Immutable.List(), onEvent);

@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import NodeStore from '../stores/NodeStore';
 import mkTreeView from './mkTreeView.react';
+import mkStore from '../stores/utils/mkStore';
+import Immutable from 'immutable';
 
-var TreeView = mkTreeView(NodeStore);
-
-describe('asd', () => {
-    it('asd', () => {
+describe('TreeView', () => {
+    it('renders without errors', () => {
+        var store = mkStore({
+            register: () => {
+            }
+        }, Immutable.fromJS([{id: 123, children: []}]), () => {
+        });
+        var TreeView = mkTreeView(store);
         var tv = <TreeView/>;
         var c = ReactTestUtils.renderIntoDocument(tv);
     });

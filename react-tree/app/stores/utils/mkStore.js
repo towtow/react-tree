@@ -1,11 +1,10 @@
-import AppDispatcher from '../../dispatcher/AppDispatcher';
 import Immutable from 'immutable';
 
-export default (initialState, eventHandler) => {
+export default (dispatcher, initialState, eventHandler) => {
     var listeners = Immutable.List();
     var state = initialState;
 
-    var dispatcherToken = AppDispatcher.register((event) => {
+    var dispatcherToken = dispatcher.register((event) => {
         var newState = eventHandler(event.get('key'), event.get('payload'), state, event);
         if (!Immutable.is(state, newState)) {
             state = newState;

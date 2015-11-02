@@ -1,9 +1,15 @@
 import React from 'react';
-import TreeActionCreator from '../actions/TreeActionCreator';
+import mkTreeActionCreator from '../actions/TreeActionCreator';
 import Immutable from 'immutable';
 import log from '../log';
 
-export default (nodeStore) => {
+export default (dispatcher, nodeStore) => {
+    var TreeActionCreator = mkTreeActionCreator(dispatcher);
+
+    function getStoreState() {
+        return {nodes: nodeStore.getState()};
+    }
+
     var TreeNode = React.createClass({
         shouldComponentUpdate: function (nextProps, nextState) {
             return !Immutable.is(this.props.node, nextProps.node);
@@ -49,8 +55,6 @@ export default (nodeStore) => {
             );
         }
     };
-
-    var getStoreState = () => ({nodes: nodeStore.getState()});
 
     return React.createClass({
         getInitialState: function () {
