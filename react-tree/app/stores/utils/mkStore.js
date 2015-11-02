@@ -1,7 +1,7 @@
 import AppDispatcher from '../../dispatcher/AppDispatcher';
 import Immutable from 'immutable';
 
-export default function (initialState, eventHandler) {
+export default (initialState, eventHandler) => {
     var listeners = Immutable.List();
     var state = initialState;
 

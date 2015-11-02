@@ -5,8 +5,8 @@ import mkTreeView from './mkTreeView.react';
 
 var TreeView = mkTreeView(NodeStore);
 
-describe('asd', function () {
-    it('asd', function () {
+describe('asd', () => {
+    it('asd', () => {
         var tv = <TreeView/>;
         var c = ReactTestUtils.renderIntoDocument(tv);
     });

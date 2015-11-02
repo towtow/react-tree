@@ -3,24 +3,24 @@ import TreeActionCreator from '../actions/TreeActionCreator';
 import Immutable from 'immutable';
 import log from '../log';
 
-export default function (nodeStore) {
+export default (nodeStore) => {
     var TreeNode = React.createClass({
         shouldComponentUpdate: function (nextProps, nextState) {
             return !Immutable.is(this.props.node, nextProps.node);
         }, //
         render: function () {
-            function toggle(e) {
+            var toggle = (e) => {
                 TreeActionCreator.expandCollapse(nodeId);
                 e.stopPropagation();
-            }
+            };
 
-            function select(e) {
+            var select = (e) => {
                 TreeActionCreator.select(nodeId);
                 e.stopPropagation();
-            }
+            };
 
-            log.imsg(this.props.level, 'TreeNode', this.props.node.get('text'));
             var props = this.props, node = props.node, childNodes, nodeId = node.get('id');
+            log.imsg(props.level, 'TreeNode', props.node.get('text'));
             var expanded = node.get('expanded');
             if (expanded) {
                 childNodes = <TreeLevel nodes={node.get('children')} level={props.level + 1}/>;
@@ -38,20 +38,19 @@ export default function (nodeStore) {
         }
     });
 
-    var TreeLevel = function (props) {
-        var childNodes = (props.nodes || []).map(function (node) {
-            return <TreeNode key={node.get('id')} node={node} level={props.level}/>
-        });
-        return (
-                <ul>
-                    {childNodes}
-                </ul>
-        );
+    var TreeLevel = (props) => {
+        log.imsg(props.level, 'TreeLevel');
+        if (props.nodes) {
+            var childNodes = props.nodes.map((node) => <TreeNode key={node.get('id')} node={node} level={props.level}/>);
+            return (
+                    <ul>
+                        {childNodes}
+                    </ul>
+            );
+        }
     };
 
-    function getStoreState() {
-        return {nodes: nodeStore.getState()};
-    }
+    var getStoreState = () => ({nodes: nodeStore.getState()});
 
     return React.createClass({
         getInitialState: function () {
@@ -67,6 +66,7 @@ export default function (nodeStore) {
             nodeStore.removeListener(this.onChange);
         }, //
         render: function () {
+            log.msg('TreeView');
             return (
                     <div className="tree">
                         <TreeLevel nodes={this.state.nodes} level={1}/>
