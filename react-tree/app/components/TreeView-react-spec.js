@@ -11,7 +11,7 @@ describe('TreeView', () => {
             }
         }, Immutable.fromJS([{id: 123, children: []}]), () => {
         });
-        var TreeView = mkTreeView(store);
+        var TreeView = mkTreeView(null, store);
         var tv = <TreeView/>;
         var c = ReactTestUtils.renderIntoDocument(tv);
     });
