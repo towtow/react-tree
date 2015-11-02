@@ -1,13 +1,33 @@
 /* globals JSON */
 import React from 'react';
+import Immutable from 'immutable';
 
 export default function (logStore) {
+    function getStoreState() {
+        return {log: logStore.getState()};
+    }
+
+    var LogEntry = React.createClass({
+        shouldComponentUpdate: function (nextProps, nextState) {
+            return !Immutable.is(this.props.l, nextProps.l);
+        }, //
+        render: function () {
+            var props = this.props;
+            console.log('> LogEntry ' + props.l.get('key'));
+            return (
+                    <li>
+                        {props.l.get('key')} {JSON.stringify(props.l.get('payload'))}
+                    </li>
+            );
+        }
+    });
+
     return React.createClass({
         getInitialState: function () {
-            return {log: logStore.getState()};
+            return getStoreState();
         }, //
         onChange: function () {
-            this.setState({log: logStore.getState()});
+            this.setState(getStoreState());
         }, //
         componentDidMount: function () {
             logStore.addListener(this.onChange);
@@ -16,15 +36,9 @@ export default function (logStore) {
             logStore.removeListener(this.onChange);
         }, //
         render: function () {
-            var LogEntry = function (l) {
-                return (
-                        <li key={key++}>
-                            {l.key} {JSON.stringify(l.payload)}
-                        </li>
-                );
-            };
+            console.log('> LogView');
             var key = 0;
-            var logEntries = this.state.log.reverse().map(LogEntry);
+            var logEntries = this.state.log.map((l) => <LogEntry key={key++} l={l}/>).reverse();
             return (
                     <div className="log">
                         <ul>

@@ -25,12 +25,12 @@ var toggleSelect = (state, nodeId) => {
 };
 
 var onEvent = (event, state) => {
-    switch (event.key) {
+    switch (event.get('key')) {
         case ActionTypes.EXPAND_COLLAPSE:
-            return expandCollapse(state, event.payload.nodeId);
+            return expandCollapse(state, event.get('payload').get('nodeId'));
 
         case ActionTypes.SELECT:
-            return toggleSelect(state, event.payload.nodeId);
+            return toggleSelect(state, event.get('payload').get('nodeId'));
     }
 
     return state;

@@ -10,6 +10,8 @@ export default function (nodeStore) {
         render: function () {
             var props = this.props, node = props.node, childNodes, nodeId = node.get('id');
 
+            console.log('> TreeNode', node.get('text'));
+
             function toggle(e) {
                 TreeActionCreator.expandCollapse(nodeId);
                 e.stopPropagation();
@@ -38,6 +40,7 @@ export default function (nodeStore) {
     });
 
     var TreeLevel = function (props) {
+        console.log('> TreeLevel');
         var childNodes = props.nodes.map(function (node) {
             return <TreeNode key={node.get('id')} node={node}/>
         });
@@ -66,6 +69,7 @@ export default function (nodeStore) {
             nodeStore.removeListener(this.onChange);
         }, //
         render: function () {
+            console.log('> TreeView');
             return (
                     <div className="tree">
                         <TreeLevel nodes={this.state.nodes}/>
