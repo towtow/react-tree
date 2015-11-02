@@ -1,4 +1,4 @@
-import makeStore from './utils/makeStore';
+import mkStore from './utils/mkStore';
 import Immutable from 'immutable';
 import TreeExampleData from '../TreeExampleData';
 import {ActionTypes} from '../constants/TreeConstants';
@@ -36,4 +36,4 @@ var onEvent = (event, state) => {
     return state;
 };
 
-export default makeStore(initialState, onEvent);
+export default mkStore(initialState, onEvent);

@@ -1,6 +1,6 @@
-import makeStore from './utils/makeStore';
+import mkStore from './utils/mkStore';
 import Immutable from 'immutable';
 
-export default makeStore(Immutable.List(), function onEvent(event, state) {
+export default mkStore(Immutable.List(), function onEvent(event, state) {
     return state.push(event);
 });
