@@ -1,11 +1,6 @@
-import makeStore from './utils/makeStore';
+import mkStore from './utils/mkStore';
 import Immutable from 'immutable';
 
-var log = Immutable.List();
-
-function onEvent(event, changed) {
-    log = log.push(event);
-    changed();
+export default (dispatcher) => {
+    return mkStore(dispatcher, Immutable.List(), (_key, _payload, state, event) => state.push(event));
 }
-
-export default makeStore(onEvent, {getLog: () => log});

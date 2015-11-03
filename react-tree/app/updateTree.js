@@ -1,22 +1,22 @@
 import Immutable from 'immutable';
 
-export default function (nodes, pred, mutation) {
-    var emptyList = Immutable.List();
+var emptyList = Immutable.List();
 
-    function procNode(node) {
-        if (pred(node)) {
-            return mutation(node);
+export default (nodes, predicate, mutation) => {
+
+    var procNode = (node) => {
+        if (predicate(node)) {
+            var changedNode = mutation(node);
+            return changedNode.set('children', procLevel(node.get('children') || emptyList));
         }
         else {
             return node.set('children', procLevel(node.get('children') || emptyList));
         }
-    }
+    };
 
-    function procLevel(ns) {
-        return ns.reduce(function (acc, c) {
-            return acc.push(procNode(c));
-        }, emptyList);
-    }
+    var procLevel = (ns) => {
+        return ns.reduce((acc, c) => acc.push(procNode(c)), emptyList);
+    };
 
     return procLevel(nodes);
 };

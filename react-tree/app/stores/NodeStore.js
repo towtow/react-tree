@@ -1,35 +1,26 @@
-import makeStore from './utils/makeStore';
+import mkStore from './utils/mkStore';
 import Immutable from 'immutable';
-import TreeExampleData from '../TreeExampleData';
 import {ActionTypes} from '../constants/TreeConstants';
 import updateTree from '../updateTree';
 
-var nodes, selectedId;
+export default (dispatcher) => {
+    var updateNodeById = (state, nodeId, mutation) => updateTree(state, (n) => n.get('id') === nodeId, mutation);
 
-nodes = Immutable.fromJS(TreeExampleData);
+    var fieldTogglerFor = (field) => (node) => node.set(field, !node.get(field));
 
-function updateById(nodes, id, mutation) {
-    return updateTree(nodes, (n) => n.get('id') === id, mutation);
-}
+    var onEvent = (key, payload, state) => {
+        switch (key) {
+            case ActionTypes.EXPAND_COLLAPSE:
+                return updateNodeById(state, payload, fieldTogglerFor('expanded'));
 
-function onEvent(event, changed) {
-    switch (event.key) {
+            case ActionTypes.SELECT:
+                return updateNodeById(state, payload, fieldTogglerFor('selected'));
 
-        case ActionTypes.EXPAND_COLLAPSE:
-            nodes = updateById(nodes, event.payload.node.get('id'), function (n) {
-                return n.set('expanded', !n.get('expanded'));
-            });
-            changed();
-            break;
+            case ActionTypes.LOAD_DATA:
+                return payload;
+        }
+        return state;
+    };
 
-        case ActionTypes.SELECT:
-            selectedId = event.payload.node.get('id');
-            changed();
-            break;
-
-        default:
-            break;
-    }
-}
-
-export default makeStore(onEvent, {getNodes: () => nodes, getSelectedId: ()=> selectedId});
+    return mkStore(dispatcher, Immutable.List(), onEvent)
+};

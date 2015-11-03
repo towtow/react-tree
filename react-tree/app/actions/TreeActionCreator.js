@@ -1,13 +1,16 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/TreeConstants';
+import Immutable from 'immutable';
 
-function event(type, payload) {
-    AppDispatcher.dispatch({
-        key: type, payload: payload
+export default function (dispatcher) {
+    var event = (type, payload) => {
+        dispatcher.dispatch(Immutable.fromJS({
+            key: type, payload: payload
+        }));
+    };
+
+    return Object.freeze({
+        select: (nodeId) => event(ActionTypes.SELECT, nodeId),
+        expandCollapse: (nodeId) => event(ActionTypes.EXPAND_COLLAPSE, nodeId),
+        loadData: (data) => event(ActionTypes.LOAD_DATA, data)
     });
 }
-
-export default {
-    select: (node) => event(ActionTypes.SELECT, {node: node}),
-    expandCollapse: (node) => event(ActionTypes.EXPAND_COLLAPSE, {node: node})
-};

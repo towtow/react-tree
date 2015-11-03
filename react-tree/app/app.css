@@ -1,5 +1,10 @@
+.tree, .log {
+    margin: 1em;
+    border: 1px solid #ffc520;
+}
+
 .log ul {
-    border: 1px solid black;
+    list-style-type: square;
 }
 
 .tree {

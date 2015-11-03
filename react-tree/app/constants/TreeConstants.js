@@ -1,6 +1,6 @@
-import KeywordMap from '../KeywordMap';
 import Immutable from 'immutable';
+import keymirror from 'keymirror';
 
 export default {
-    ActionTypes: {SELECT: 'SELECT', EXPAND_COLLAPSE: 'EXPAND_COLLAPSE'}
+    ActionTypes: keymirror({SELECT: null, EXPAND_COLLAPSE: null, LOAD_DATA: null})
 };
