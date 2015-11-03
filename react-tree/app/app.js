@@ -9,6 +9,8 @@ import mkTreeActionCreator from './actions/TreeActionCreator';
 import TreeExampleData from './TreeExampleData';
 import {Dispatcher} from 'flux';
 
+require ('./app.css');
+
 var appDispatcher = new Dispatcher();
 
 var nodeStore = mkNodeStore(appDispatcher);

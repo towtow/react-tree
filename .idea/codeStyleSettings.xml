@@ -284,6 +284,12 @@
             <option name="TAB_SIZE" value="8" />
           </indentOptions>
         </codeStyleSettings>
+        <codeStyleSettings language="Stylus">
+          <indentOptions>
+            <option name="INDENT_SIZE" value="4" />
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
         <codeStyleSettings language="XML">
           <indentOptions>
             <option name="TAB_SIZE" value="8" />

@@ -3,6 +3,8 @@ import React from 'react';
 import Immutable from 'immutable';
 import log from '../log';
 
+require('./LogView.css');
+
 export default (dispatcher, logStore) => {
     function getStoreState() {
         return {log: logStore.getState()};

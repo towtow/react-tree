@@ -3,6 +3,8 @@ import mkTreeActionCreator from '../actions/TreeActionCreator';
 import Immutable from 'immutable';
 import log from '../log';
 
+require('./TreeView.css');
+
 export default (dispatcher, nodeStore) => {
     var TreeActionCreator = mkTreeActionCreator(dispatcher);
 
@@ -31,11 +33,11 @@ export default (dispatcher, nodeStore) => {
             if (expanded) {
                 childNodes = <TreeLevel nodes={node.get('children')} level={props.level + 1}/>;
             }
-            var icon = node.get('children').count() > 0 ? (expanded ? '-' : '+') : undefined;
+            var icon = node.get('children').count() > 0 ? <span className="tree-icon" onClick={expandCollapse}>{(expanded ? '-' : '+')}</span> : undefined;
             return (
                     <li>
                         <div className={node.get('selected') ? 'tree-selected' : ''}>
-                            <span className="tree-icon" onClick={expandCollapse}>{icon}</span>
+                            {icon}
                             <span className="tree-label" onClick={select}>{node.get('text')}</span>
                         </div>
                         {childNodes}

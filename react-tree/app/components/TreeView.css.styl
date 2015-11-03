@@ -1,0 +1,41 @@
+no-user-select()
+    -webkit-touch-callout none
+    -webkit-user-select none
+    -khtml-user-select none
+    -moz-user-select none
+    -ms-user-select none
+    user-select none
+
+$highlight = #ffc520
+
+.tree
+    margin 1em
+    border 1px solid $highlight
+
+.tree ul ul
+    margin-left 1em
+
+.tree
+    no-user-select()
+
+.tree ul
+    list-style none
+    padding 0
+    margin 0
+
+.tree-icon
+.tree-label
+    cursor pointer
+
+.tree-label
+    margin-left 1em
+
+.tree-icon
+    position absolute
+    display block
+    height 1em
+    width 1em
+    text-align center
+
+.tree-selected .tree-label
+    background-color $highlight
