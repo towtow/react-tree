@@ -5,13 +5,8 @@ var emptyList = Immutable.List();
 export default (nodes, predicate, mutation) => {
 
     var procNode = (node) => {
-        if (predicate(node)) {
-            var changedNode = mutation(node);
-            return changedNode.set('children', procLevel(node.get('children') || emptyList));
-        }
-        else {
-            return node.set('children', procLevel(node.get('children') || emptyList));
-        }
+        var node2 = predicate(node) ? mutation(node) : node;
+        return node2.set('children', procLevel(node.get('children') || emptyList));
     };
 
     var procLevel = (ns) => {
