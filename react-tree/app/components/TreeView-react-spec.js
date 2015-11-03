@@ -14,5 +14,6 @@ describe('TreeView', () => {
         var TreeView = mkTreeView(null, store);
         var tv = <TreeView/>;
         var c = ReactTestUtils.renderIntoDocument(tv);
+
     });
 });
