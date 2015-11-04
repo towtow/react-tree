@@ -1,6 +1,6 @@
-import mkStore from './utils/mkStore';
+import createStore from './utils/createStore';
 import Immutable from 'immutable';
 
 export default (dispatcher) => {
-    return mkStore(dispatcher, Immutable.List(), (_key, _payload, state, event) => state.push(event));
+    return createStore(dispatcher, Immutable.List(), (_key, _payload, state, event) => state.push(event));
 }

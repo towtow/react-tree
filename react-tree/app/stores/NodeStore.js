@@ -1,6 +1,6 @@
-import mkStore from './utils/mkStore';
+import createStore from './utils/createStore';
 import Immutable from 'immutable';
-import {ActionTypes} from '../constants/TreeConstants';
+import TreeActionTypes from '../constants/TreeActionTypes';
 import updateTree from '../updateTree';
 
 export default (dispatcher) => {
@@ -10,17 +10,17 @@ export default (dispatcher) => {
 
     var onEvent = (key, payload, state) => {
         switch (key) {
-            case ActionTypes.EXPAND_COLLAPSE:
+            case TreeActionTypes.TREE_EXPAND_COLLAPSE:
                 return updateNodeById(state, payload, fieldTogglerFor('expanded'));
 
-            case ActionTypes.SELECT:
+            case TreeActionTypes.TREE_SELECT:
                 return updateNodeById(state, payload, fieldTogglerFor('selected'));
 
-            case ActionTypes.LOAD_DATA:
+            case TreeActionTypes.TREE_LOAD_DATA:
                 return payload;
         }
         return state;
     };
 
-    return mkStore(dispatcher, Immutable.List(), onEvent)
+    return createStore(dispatcher, Immutable.List(), onEvent)
 };

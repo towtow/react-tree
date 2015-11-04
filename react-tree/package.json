@@ -6,7 +6,7 @@
         "start": "webpack-dev-server --hot --inline",
         "test": "karma start",
         "build": "webpack",
-        "dist": "webpack -p"
+        "dist": "rm -r dist && webpack -p"
     },
     "dependencies": {
         "flux": "2.1.1",

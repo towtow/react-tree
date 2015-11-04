@@ -16,7 +16,6 @@
             <option name="USE_RELATIVE_INDENTS" value="false" />
           </value>
         </option>
-        <option name="LINE_SEPARATOR" value="&#10;" />
         <option name="GENERATE_FINAL_LOCALS" value="true" />
         <option name="GENERATE_FINAL_PARAMETERS" value="true" />
         <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99999" />
@@ -57,9 +56,15 @@
             </value>
           </option>
         </GroovyCodeStyleSettings>
+        <Properties>
+          <option name="KEY_VALUE_DELIMITER" value=":" />
+        </Properties>
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>
+        <editorconfig>
+          <option name="ENABLED" value="false" />
+        </editorconfig>
         <codeStyleSettings language="CFML">
           <option name="KEEP_LINE_BREAKS" value="false" />
           <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
@@ -181,6 +186,11 @@
             <option name="TAB_SIZE" value="8" />
           </indentOptions>
         </codeStyleSettings>
+        <codeStyleSettings language="HTML">
+          <indentOptions>
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
         <codeStyleSettings language="JAVA">
           <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
           <option name="BLOCK_COMMENT_AT_FIRST_COLUMN" value="false" />
@@ -238,6 +248,16 @@
             <option name="TAB_SIZE" value="8" />
           </indentOptions>
         </codeStyleSettings>
+        <codeStyleSettings language="JSPX">
+          <indentOptions>
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="Jade">
+          <indentOptions>
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
         <codeStyleSettings language="JavaScript">
           <option name="KEEP_LINE_BREAKS" value="false" />
           <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
@@ -248,12 +268,17 @@
           <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
           <option name="CALL_PARAMETERS_WRAP" value="5" />
           <option name="METHOD_PARAMETERS_WRAP" value="5" />
+          <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
           <option name="BINARY_OPERATION_WRAP" value="1" />
           <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true" />
           <option name="TERNARY_OPERATION_WRAP" value="5" />
           <option name="TERNARY_OPERATION_SIGNS_ON_NEXT_LINE" value="true" />
+          <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
+          <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
           <option name="FOR_STATEMENT_WRAP" value="5" />
           <option name="ARRAY_INITIALIZER_WRAP" value="5" />
+          <option name="ARRAY_INITIALIZER_LBRACE_ON_NEXT_LINE" value="true" />
+          <option name="ARRAY_INITIALIZER_RBRACE_ON_NEXT_LINE" value="true" />
           <option name="ASSIGNMENT_WRAP" value="1" />
           <option name="PLACE_ASSIGNMENT_SIGN_ON_NEXT_LINE" value="true" />
           <option name="IF_BRACE_FORCE" value="3" />
@@ -263,6 +288,17 @@
           <option name="PARENT_SETTINGS_INSTALLED" value="true" />
           <indentOptions>
             <option name="CONTINUATION_INDENT_SIZE" value="8" />
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="LESS">
+          <indentOptions>
+            <option name="INDENT_SIZE" value="4" />
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="Python">
+          <indentOptions>
             <option name="TAB_SIZE" value="8" />
           </indentOptions>
         </codeStyleSettings>
@@ -281,6 +317,7 @@
         <codeStyleSettings language="SQL">
           <indentOptions>
             <option name="INDENT_SIZE" value="4" />
+            <option name="CONTINUATION_INDENT_SIZE" value="8" />
             <option name="TAB_SIZE" value="8" />
           </indentOptions>
         </codeStyleSettings>
@@ -290,7 +327,18 @@
             <option name="TAB_SIZE" value="8" />
           </indentOptions>
         </codeStyleSettings>
+        <codeStyleSettings language="TypeScript">
+          <indentOptions>
+            <option name="CONTINUATION_INDENT_SIZE" value="8" />
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
         <codeStyleSettings language="XML">
+          <indentOptions>
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="kotlin">
           <indentOptions>
             <option name="TAB_SIZE" value="8" />
           </indentOptions>

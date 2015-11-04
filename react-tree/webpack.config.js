@@ -1,29 +1,22 @@
-var path = require("path");
-var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var path = require('path');
+
+var isDev = false;
 
 module.exports = {
-    context: path.join(__dirname, "app"), //
-    resolve: {
-        extensions: ["", ".js", ".css", ".styl"]
-    }, //
+    context: path.join(__dirname, 'app'), //
     entry: {
-        javascript: "./app.js", //
-        html: "./index.html", //
-        css: "./app.css"
+        app: './app.js'
     }, //
-    devtool: "#source-map", //
+    devtool: '#source-map', //
     output: {
-        filename: "app.js", //
-        chunkFilename: "[id].js", //
-        path: path.join(__dirname, "dist")
+        path: path.join(__dirname, 'dist'), filename: '[name].js', //
+        chunkFilename: '[name][id].js', //
+        publicPath: 'http://localhost:8080/'
     }, //
     module: {
         loaders: [ //
-            {test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel-loader"]}, //
-            //{test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")}, //
-            {test: /\.css$/, loader: 'style-loader!css-loader'}, //
-            {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'}, //
-            {test: /\.html$/, loader: "file?name=[name].[ext]"}]
-    }, plugins: [new ExtractTextPlugin("app.css")]
+            {test: /\.js$/, exclude: /node_modules/, loaders: isDev ? ['react-hot', 'babel'] : ['babel']}, //
+            {test: /\.styl$/, loader: 'style!css!stylus'}, //
+            {test: /\.html$/, loader: 'file?name=[name].[ext]'}]
+    }
 };

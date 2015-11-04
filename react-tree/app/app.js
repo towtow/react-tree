@@ -1,26 +1,27 @@
+import './index.html';
+import './app.styl';
+
 import log from './log';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import mkTreeView from './components/mkTreeView.react';
-import mkLogView from './components/mkLogView.react';
-import mkNodeStore from './stores/NodeStore';
-import mkLogStore from './stores/LogStore';
-import mkTreeActionCreator from './actions/TreeActionCreator';
+import createTreeView from './components/createTreeView.js';
+import createLogView from './components/createLogView.js';
+import createNodeStore from './stores/NodeStore';
+import createLogStore from './stores/LogStore';
+import createTreeActionCreator from './actions/TreeActionCreator';
 import TreeExampleData from './TreeExampleData';
 import {Dispatcher} from 'flux';
 
-require ('./app.css');
-
 var appDispatcher = new Dispatcher();
 
-var nodeStore = mkNodeStore(appDispatcher);
-var logStore = mkLogStore(appDispatcher);
+var nodeStore = createNodeStore(appDispatcher);
+var logStore = createLogStore(appDispatcher);
 
-var TreeView = mkTreeView(appDispatcher, nodeStore);
+var TreeView = createTreeView(appDispatcher, nodeStore);
 ReactDOM.render(<TreeView />, document.getElementById('app'));
-var Log = mkLogView(appDispatcher, logStore);
+var Log = createLogView(appDispatcher, logStore);
 ReactDOM.render(<Log />, document.getElementById('log'));
 
 log.msg('Loading data...');
-mkTreeActionCreator(appDispatcher).loadData(TreeExampleData);
+createTreeActionCreator(appDispatcher).loadData(TreeExampleData);
 log.msg('...done!');

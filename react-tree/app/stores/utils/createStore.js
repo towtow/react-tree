@@ -13,9 +13,9 @@ export default (dispatcher, initialState, eventHandler) => {
     });
 
     return Object.freeze({
-        addListener: (callback) => listeners = listeners.push(callback),
-        removeListener: (callback) => listeners = listeners.remove(listeners.indexOf(callback)),
-        getDispatcherToken: () => dispatcherToken,
-        getState: () => state
-    });
+                             addListener: (callback) => listeners = listeners.push(callback),
+                             removeListener: (callback) => listeners = listeners.remove(listeners.indexOf(callback)),
+                             getDispatcherToken: () => dispatcherToken,
+                             getState: () => state
+                         });
 };
