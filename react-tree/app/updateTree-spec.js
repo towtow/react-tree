@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+/*global describe,it,expect*/
 import TreeExampleData from './TreeExampleData';
 import update from './updateTree';
 

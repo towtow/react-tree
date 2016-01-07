@@ -1,0 +1,46 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-console": 0,
+        "strict": 2,
+        "arrow-parens": 2,
+        "quotes": [
+            2,
+            "single",
+            "avoid-escape"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "no-native-reassign": 2,
+        "no-param-reassign": 2,
+        "no-proto": 2,
+        "no-return-assign": 2,
+        "no-class-assign": 2,
+        "no-const-assign": 2,
+        // "no-implicit-globals": 2, todo: enable once the rule is stable
+        // "eqeqeq": 2,  todo: enable and fix shit
+        "jsx-quotes": 2,
+        "react/react-in-jsx-scope": 2,
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2
+    },
+    "ecmaFeatures": {
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "destructuring": true,
+        "modules": true,
+        "restParams": true,
+        "spread": true,
+        "templateStrings": true,
+        "jsx": true
+    },
+    "plugins": [
+        "react"
+    ],
+    "globals": {
+        "__": false,
+        "window": false
+    }
+}

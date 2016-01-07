@@ -1,3 +1,4 @@
+/*global describe,it*/
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import createTreeView from './createTreeView.js';
@@ -13,6 +14,6 @@ describe('TreeView', () => {
         });
         var TreeView = createTreeView(null, store);
         var tv = <TreeView/>;
-        var c = ReactTestUtils.renderIntoDocument(tv);
+        ReactTestUtils.renderIntoDocument(tv);
     });
 });

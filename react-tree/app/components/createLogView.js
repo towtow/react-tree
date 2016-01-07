@@ -11,7 +11,7 @@ export default (dispatcher, logStore) => {
     }
 
     var LogEntry = React.createClass({
-                                         shouldComponentUpdate: function (nextProps, nextState) {
+                                         shouldComponentUpdate: function (nextProps/*, nextState*/) {
                                              return !Immutable.is(this.props.l, nextProps.l);
                                          }, //
                                          render: function () {

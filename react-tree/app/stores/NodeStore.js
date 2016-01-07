@@ -22,5 +22,5 @@ export default (dispatcher) => {
         return state;
     };
 
-    return createStore(dispatcher, Immutable.List(), onEvent)
+    return createStore(dispatcher, Immutable.List(), onEvent);
 };

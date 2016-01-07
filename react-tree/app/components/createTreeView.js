@@ -13,7 +13,7 @@ export default (dispatcher, nodeStore) => {
     }
 
     var TreeNode = React.createClass({
-                                         shouldComponentUpdate: function (nextProps, nextState) {
+                                         shouldComponentUpdate: function (nextProps/*, nextState*/) {
                                              return !Immutable.is(this.props.node, nextProps.node);
                                          }, //
                                          render: function () {

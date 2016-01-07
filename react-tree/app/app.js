@@ -18,9 +18,9 @@ var nodeStore = createNodeStore(appDispatcher);
 var logStore = createLogStore(appDispatcher);
 
 var TreeView = createTreeView(appDispatcher, nodeStore);
-ReactDOM.render(<TreeView />, document.getElementById('app'));
+ReactDOM.render(<TreeView />, window.document.getElementById('app'));
 var Log = createLogView(appDispatcher, logStore);
-ReactDOM.render(<Log />, document.getElementById('log'));
+ReactDOM.render(<Log />, window.document.getElementById('log'));
 
 log.msg('Loading data...');
 createTreeActionCreator(appDispatcher).loadData(TreeExampleData);
