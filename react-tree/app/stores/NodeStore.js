@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import TreeActionTypes from '../constants/TreeActionTypes';
 import updateTree from '../updateTree';
 
-export default (dispatcher) => {
+export default function (dispatcher) {
     var updateNodeById = (state, nodeId, mutation) => updateTree(state, (n) => n.get('id') === nodeId, mutation);
 
     var fieldTogglerFor = (field) => (node) => node.set(field, !node.get(field));
@@ -23,4 +23,4 @@ export default (dispatcher) => {
     };
 
     return createStore(dispatcher, Immutable.List(), onEvent);
-};
+}

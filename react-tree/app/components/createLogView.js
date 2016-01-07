@@ -1,4 +1,3 @@
-/* globals JSON */
 import './LogView.styl';
 
 import React from 'react';
