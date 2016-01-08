@@ -2,20 +2,16 @@
 var path = require('path');
 
 module.exports = {
-    context: path.join(__dirname, 'app'),
+    context: __dirname,
 
     entry: {
-        app: './app.js'
+        'react-tree-app': path.resolve(__dirname, 'app/app.js')
     },
 
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist'),
 
-        filename: '[name].js',
-
-        chunkFilename: '[name][id].js',
-
-        publicPath: 'http://localhost:8686/'
+        filename: '[name].js'
     },
 
     module: {

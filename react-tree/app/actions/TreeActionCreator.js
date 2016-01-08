@@ -2,10 +2,8 @@ import TreeActionTypes from '../constants/TreeActionTypes';
 import Immutable from 'immutable';
 
 export default function (dispatcher) {
-    var event = (type, payload) => {
-        dispatcher.dispatch(Immutable.fromJS({
-                                                 key: type, payload: payload
-                                             }));
+    const event = (type, payload) => {
+        dispatcher.dispatch(Immutable.fromJS({key: type, payload: payload}));
     };
 
     return Object.freeze({

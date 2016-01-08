@@ -1,5 +1,6 @@
 import createStore from './utils/createStore';
 import Immutable from 'immutable';
+//import Cursor from 'immutable/contrib/cursor';
 import TreeActionTypes from '../constants/TreeActionTypes';
 import updateTree from '../updateTree';
 
@@ -24,3 +25,6 @@ export default function (dispatcher) {
 
     return createStore(dispatcher, Immutable.List(), onEvent);
 }
+//var cursor = Cursor.from(data, ['a', 'b'], newData => {
+//    data = newData;
+//});

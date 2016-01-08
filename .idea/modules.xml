@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/react-stuff.iml" filepath="$PROJECT_DIR$/react-stuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/react-tree/react-tree.iml" filepath="$PROJECT_DIR$/react-tree/react-tree.iml" />
     </modules>
   </component>
 </project>

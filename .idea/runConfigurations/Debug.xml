@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug" type="JavascriptDebugType" factoryName="JavaScript Debug" uri="http://localhost:8686/">
+    <mapping url="webpack:///." local-file="$PROJECT_DIR$/react-tree" />
+    <method />
+  </configuration>
+</component>

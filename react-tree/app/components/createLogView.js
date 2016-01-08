@@ -4,7 +4,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import log from '../log';
 
-export default (dispatcher, logStore) => {
+export default function (dispatcher, logStore) {
     function getStoreState() {
         return {log: logStore.getState()};
     }
@@ -12,7 +12,8 @@ export default (dispatcher, logStore) => {
     var LogEntry = React.createClass({
                                          shouldComponentUpdate: function (nextProps/*, nextState*/) {
                                              return !Immutable.is(this.props.l, nextProps.l);
-                                         }, //
+                                         },
+
                                          render: function () {
                                              var props = this.props;
                                              log.imsg(1, 'LogEntry ' + props.l.get('key'));
@@ -49,4 +50,4 @@ export default (dispatcher, logStore) => {
                                      );
                                  }
                              });
-};
+}
